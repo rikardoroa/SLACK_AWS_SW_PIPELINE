@@ -28,7 +28,7 @@ jobs:
         working-directory: ./slack_aws_snowflake_pipeline
 
       - name: Terraform Plan
-        run: terraform plan -out=tfplan -input=false tfplan
+        run: terraform plan -out=tfplan -input=false
         working-directory: ./slack_aws_snowflake_pipeline
 
       - name: Terraform Destroy
