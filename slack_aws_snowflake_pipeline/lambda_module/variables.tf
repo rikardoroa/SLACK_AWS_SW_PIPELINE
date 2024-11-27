@@ -15,3 +15,11 @@ variable "curated_bucket" {
 variable  "kms_key_arn" {
   type  = string
 }
+
+
+variable "aws_region"{
+  description = "aws region"
+  type = string
+  default = "us-east-2"
+
+}
