@@ -1,0 +1,1 @@
+bucket = "awscalivemarketinsightsnp-ap-lmi"

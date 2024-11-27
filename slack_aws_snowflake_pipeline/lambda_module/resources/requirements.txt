@@ -1,0 +1,4 @@
+slack-sdk
+requests
+pandas
+python-dotenv
