@@ -23,3 +23,10 @@ variable "aws_region"{
   default = "us-east-2"
 
 }
+
+
+variable "lambda_timeout" {
+  description = "The timeout for the Lambda function in seconds"
+  type        = number
+  default     = 360 # 6 minutes
+}
