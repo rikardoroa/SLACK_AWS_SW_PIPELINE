@@ -2,8 +2,9 @@ import json
 from slack_content import GetSlackFile
 import logging
 
-logging.basicConfig(level=logging.DEBUG)
-logger = logging.getLogger(__name__)
+import logging
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
 
 def lambda_handler(event, context):
     # getting the lambda event

@@ -12,9 +12,9 @@ slack_token = os.environ["token"]
 s3_bucket_name = os.environ["bucket"]
 key = os.environ["key"]
 
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
 
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
 
 class GetSlackFile:
 
