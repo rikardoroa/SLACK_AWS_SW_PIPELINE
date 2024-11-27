@@ -40,8 +40,9 @@ resource "aws_api_gateway_integration" "integration" {
   http_method             = aws_api_gateway_method.slackwebhookmethod.http_method
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
-  uri                     = var.invoke_arn
+  uri                     = "arn:aws:apigateway:${var.region}:lambda:path/2015-03-31/functions/${var.invoke_arn}/invocations"
 }
+
 
 # creating api gateway integration response
 resource "aws_api_gateway_integration_response" "integration_response_200" {
