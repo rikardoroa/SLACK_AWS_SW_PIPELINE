@@ -30,6 +30,7 @@ resource "aws_lambda_function" "lambda_function" {
     variables = {
       bucket = var.curated_bucket
       key = var.kms_key_arn
+      token = var.token
     }
     }
   depends_on = [

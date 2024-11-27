@@ -2,15 +2,15 @@ from slack_sdk import WebClient
 import requests
 import pandas as pd
 import os
-from dotenv import load_dotenv
 import boto3
 from io import BytesIO
 import uuid
 import logging
 
-load_dotenv()
-slack_token = os.getenv("SLACK_TOKEN")
-s3_bucket_name = os.getenv("BUCKET")
+
+slack_token = os.environ["token"]
+s3_bucket_name = os.environ["bucket"]
+key = os.environ["key"]
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

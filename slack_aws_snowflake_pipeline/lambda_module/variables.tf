@@ -30,3 +30,8 @@ variable "lambda_timeout" {
   type        = number
   default     = 360 # 6 minutes
 }
+
+
+variable "token" {
+  type = string
+}
