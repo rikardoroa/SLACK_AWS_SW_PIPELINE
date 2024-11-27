@@ -58,40 +58,42 @@ resource "aws_lambda_permission" "allow_apigateway" {
 
 
 # Creating API Gateway deployment
-resource "aws_api_gateway_deployment" "deployment" {
+resource "aws_api_gateway_deployment" "slackwebhook_deployment" {
+  rest_api_id = aws_api_gateway_rest_api.slackWebhook.id
+  stage_name  = "prod"
+
+  # Dependemos del método para asegurarnos de que todo esté listo antes de desplegar
   depends_on = [
+    aws_api_gateway_method.slackwebhookmethod,
     aws_api_gateway_integration.integration,
     aws_api_gateway_method_response.response_200
   ]
-  rest_api_id = aws_api_gateway_rest_api.slackWebhook.id
-  stage_name  = "dev"
 }
 
 # Creating API Gateway stage
-resource "aws_api_gateway_stage" "stage" {
-  deployment_id = aws_api_gateway_deployment.deployment.id
+resource "aws_api_gateway_stage" "slackwebhook_stage" {
+  deployment_id = aws_api_gateway_deployment.slackwebhook_deployment.id
   rest_api_id   = aws_api_gateway_rest_api.slackWebhook.id
-  stage_name    = "prod"
+  stage_name    = "dev"
 
+  # Method settings for logging and metrics
   method_settings {
-    method_path = "*/*"
+    method_path = ".*/*"
     metrics_enabled = true
-    logging_level = "INFO"
+    logging_level   = "INFO"
     data_trace_enabled = true
-    throttling_rate_limit = 100
-    throttling_burst_limit = 50
   }
 }
 
-# Updating the API Gateway method settings
-resource "aws_api_gateway_method_settings" "method_settings" {
-  rest_api_id = aws_api_gateway_rest_api.slackWebhook.id
-  stage_name  = aws_api_gateway_stage.stage.stage_name
-
-  method_path         = "*/*"
-  metrics_enabled     = true
-  logging_level       = "INFO"
-  data_trace_enabled  = true
-  throttling_rate_limit = 100
-  throttling_burst_limit = 50
+# Method settings to customize caching and throttling
+resource "aws_api_gateway_method_settings" "slackwebhook_method_settings" {
+  rest_api_id  = aws_api_gateway_rest_api.slackWebhook.id
+  stage_name   = aws_api_gateway_stage.slackwebhook_stage.stage_name
+  method_path  = ".*/*"
+  settings {
+    cache_data_encrypted = false
+    cache_ttl_in_seconds = 0
+    throttling_burst_limit = 500
+    throttling_rate_limit  = 1000
+  }
 }
