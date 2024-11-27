@@ -60,7 +60,6 @@ resource "aws_lambda_permission" "allow_apigateway" {
 # Creating API Gateway deployment
 resource "aws_api_gateway_deployment" "slackwebhook_deployment" {
   rest_api_id = aws_api_gateway_rest_api.slackWebhook.id
-  stage_name  = "dev"
 
   # Dependemos del método para asegurarnos de que todo esté listo antes de desplegar
   depends_on = [
