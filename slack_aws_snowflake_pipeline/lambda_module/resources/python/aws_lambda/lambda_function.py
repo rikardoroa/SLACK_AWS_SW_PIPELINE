@@ -4,7 +4,7 @@ from slack_content import GetSlackFile
 def lambda_handler(event, context):
     # getting the lambda event
     body = json.loads(event["body"])
-
+    print(body)
     # Handle Slack URL verification
     if body.get('type') == 'url_verification':
         return {
