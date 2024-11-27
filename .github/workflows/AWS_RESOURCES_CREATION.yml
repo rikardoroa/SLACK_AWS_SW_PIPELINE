@@ -38,5 +38,5 @@ jobs:
         env:
           TF_VAR_token: ${{ secrets.TOKEN }}
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: terraform apply -auto-approve tfplan
+        run: terraform apply -auto-approve -input=false tfplan
         working-directory: ./slack_aws_snowflake_pipeline
