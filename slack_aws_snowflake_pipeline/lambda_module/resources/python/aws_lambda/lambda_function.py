@@ -3,15 +3,17 @@ from slack_content import GetSlackFile
 
 def lambda_handler(event, context):
     
+   
+
+    # getting the lambda event
+    body = json.loads(event["body"])
+
     # sending a responde per event to slack api
     return {
             "statusCode": 200,
             "headers": {"Content-Type": "application/json"},
             "body": json.dumps({"challenge": body.get("challenge")})
-        }
-
-    # getting the lambda event
-    body = json.loads(event["body"])
+    }
     
     # validating slack api response
     if body.get('type') == 'url_verification':
