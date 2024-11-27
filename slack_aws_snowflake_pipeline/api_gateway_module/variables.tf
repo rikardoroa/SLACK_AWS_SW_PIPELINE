@@ -7,7 +7,6 @@ variable "function_name" {
 }
 
 
-
 variable "region"{
   description = "aws region"
   type = string
