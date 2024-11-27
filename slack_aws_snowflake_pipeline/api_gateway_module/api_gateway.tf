@@ -16,7 +16,7 @@ resource "aws_api_gateway_resource" "slackwebhookpath" {
 
 # creating api gateway method
 resource "aws_api_gateway_method" "slackwebhookmethod" {
-  authorization = "AWS_IAM"
+  authorization = "NONE"
   http_method   = "POST"
   resource_id   = aws_api_gateway_resource.slackwebhookpath.id
   rest_api_id   =  aws_api_gateway_rest_api.slackWebhook.id
