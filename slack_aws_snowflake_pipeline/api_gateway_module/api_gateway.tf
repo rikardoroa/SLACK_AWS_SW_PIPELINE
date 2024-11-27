@@ -81,7 +81,7 @@ resource "aws_api_gateway_stage" "slackwebhook_stage" {
 resource "aws_api_gateway_method_settings" "slackwebhook_method_settings" {
   rest_api_id  = aws_api_gateway_rest_api.slackWebhook.id
   stage_name   = aws_api_gateway_stage.slackwebhook_stage.stage_name
-  method_path  = ".*/*"
+  method_path  = "*/*"
   settings {
     cache_data_encrypted = false
     cache_ttl_in_seconds = 0
