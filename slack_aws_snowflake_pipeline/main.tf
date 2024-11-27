@@ -6,6 +6,7 @@ module "bucket_utils" {
 module "aws_lambda_utils" {
   source       = "./lambda_module"
   kms_key_arn  = module.bucket_utils.kms_key_arn
+  token = var.token
 }
 
 
