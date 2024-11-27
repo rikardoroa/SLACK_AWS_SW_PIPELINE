@@ -31,7 +31,9 @@ jobs:
         working-directory: ./slack_aws_snowflake_pipeline
 
       - name: Terraform Plan
-        run: terraform plan -out=tfplan
+        env:
+          TF_VAR_token: ${{ secrets.TOKEN }}
+        run: terraform plan -out=tfplan -input=false -var "token=${{ secrets.TOKEN }}"
         working-directory: ./slack_aws_snowflake_pipeline
 
       - name: Terraform Apply
