@@ -31,7 +31,7 @@ data "aws_iam_policy_document" "pipeline_dev_policy" {
       "logs:DeleteLogGroup",
       "logs:DeleteLogStream"
     ]
-    resources = [aws_lambda_function.lambda_function.arn]
+    resources = ["*"]
   }
 
   statement {
@@ -47,6 +47,6 @@ data "aws_iam_policy_document" "pipeline_dev_policy" {
       "kms:*",
       "apigateway:POST"
     ]
-    resources = [aws_lambda_function.lambda_function.arn]
+     resources = ["*"]
   }
 }
