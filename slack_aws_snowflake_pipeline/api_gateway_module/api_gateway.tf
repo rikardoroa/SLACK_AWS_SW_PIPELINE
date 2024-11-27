@@ -52,3 +52,46 @@ resource "aws_lambda_permission" "allow_apigateway" {
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_api_gateway_rest_api.slackWebhook.execution_arn}/*/*"
 }
+
+
+
+
+
+# Creating API Gateway deployment
+resource "aws_api_gateway_deployment" "deployment" {
+  depends_on = [
+    aws_api_gateway_integration.integration,
+    aws_api_gateway_method_response.response_200
+  ]
+  rest_api_id = aws_api_gateway_rest_api.slackWebhook.id
+  stage_name  = "dev"
+}
+
+# Creating API Gateway stage
+resource "aws_api_gateway_stage" "stage" {
+  deployment_id = aws_api_gateway_deployment.deployment.id
+  rest_api_id   = aws_api_gateway_rest_api.slackWebhook.id
+  stage_name    = "prod"
+
+  method_settings {
+    method_path = "*/*"
+    metrics_enabled = true
+    logging_level = "INFO"
+    data_trace_enabled = true
+    throttling_rate_limit = 100
+    throttling_burst_limit = 50
+  }
+}
+
+# Updating the API Gateway method settings
+resource "aws_api_gateway_method_settings" "method_settings" {
+  rest_api_id = aws_api_gateway_rest_api.slackWebhook.id
+  stage_name  = aws_api_gateway_stage.stage.stage_name
+
+  method_path         = "*/*"
+  metrics_enabled     = true
+  logging_level       = "INFO"
+  data_trace_enabled  = true
+  throttling_rate_limit = 100
+  throttling_burst_limit = 50
+}
