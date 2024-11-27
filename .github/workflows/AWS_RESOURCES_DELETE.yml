@@ -34,5 +34,5 @@ jobs:
         working-directory: ./slack_aws_snowflake_pipeline
 
       - name: Terraform Destroy
-        run: terraform destroy -auto-approve
+        run: terraform destroy -auto-approve -var "token=${{ secrets.TOKEN }}"
         working-directory: ./slack_aws_snowflake_pipeline
