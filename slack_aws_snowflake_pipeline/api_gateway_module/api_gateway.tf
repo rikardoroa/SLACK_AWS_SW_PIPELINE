@@ -60,7 +60,7 @@ resource "aws_lambda_permission" "allow_apigateway" {
 # Creating API Gateway deployment
 resource "aws_api_gateway_deployment" "slackwebhook_deployment" {
   rest_api_id = aws_api_gateway_rest_api.slackWebhook.id
-  stage_name  = "prod"
+  stage_name  = "dev"
 
   # Dependemos del método para asegurarnos de que todo esté listo antes de desplegar
   depends_on = [
@@ -76,13 +76,6 @@ resource "aws_api_gateway_stage" "slackwebhook_stage" {
   rest_api_id   = aws_api_gateway_rest_api.slackWebhook.id
   stage_name    = "dev"
 
-  # Method settings for logging and metrics
-  method_settings {
-    method_path = ".*/*"
-    metrics_enabled = true
-    logging_level   = "INFO"
-    data_trace_enabled = true
-  }
 }
 
 # Method settings to customize caching and throttling
