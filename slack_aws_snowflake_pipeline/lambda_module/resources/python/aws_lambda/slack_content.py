@@ -52,7 +52,7 @@ class GetSlackFile:
                         # for transformations you can add logic here
                         # additional logic
                         file_name = "".join(['lmi_data_', str(uuid.uuid4()), '.csv'])
-                        self.client.put_object(Bucket=self.bucket, Key=file_name, Body=buffer.getvalue())
+                        self.client.put_object(Bucket=self.bucket+"/data/", Key=file_name, Body=buffer.getvalue())
                 else:
                     logger.info("please review the process, the file can not be ingested in the s3 bucket")
         except Exception as e:
